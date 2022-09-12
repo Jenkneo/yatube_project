@@ -8,6 +8,6 @@ def index(request):
     return render(request, template)
 
 
-def group_posts(request, text):
-    return HttpResponse('Страница, где посты отфильтрованы!'
-                        f'<br>и {text}!')
+def group_list(request):
+    template = 'posts/group_list.html'
+    return render(request, template)

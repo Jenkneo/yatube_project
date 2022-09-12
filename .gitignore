@@ -41,6 +41,7 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
+A_CACHE_FILES
 .nox/
 .coverage
 .coverage.*
@@ -128,3 +129,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/A_CACHE_FILES/
