@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-<main>
-    <!-- класс py-5 создает отступы сверху и снизу блока -->
-    <div class="container py-5">
+
         {% block title %}
         <h1>Последние обновления на сайте</h1>
         {% endblock %}
@@ -69,7 +67,6 @@
             </p>
             <a href="{% url 'posts:group_list' %}">все записи группы</a>
         </article>
-        {% endblock %}
         <!-- под последним постом нет линии -->
-    </div>
-</main>
+        {% endblock %}
+
