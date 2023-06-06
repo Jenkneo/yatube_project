@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+{% block title %}
+  <div class="mb-5">
+    <h1>Все посты пользователя {{ author.first_name}} {{ author.last_name}} </h1>
+    <h3>Всего постов: {{ posts_count }} </h3>
+    {% if request.user.is_authenticated %}
+      {% if requset.user != author %}
+        {% if following %}
+        <a
+                class="btn btn-lg btn-light"
+                href="{% url 'posts:profile_unfollow' author.username %}" role="button"
+        >
+          Отписаться
+        </a>
+        {% else %}
+        <a
+                class="btn btn-lg btn-primary"
+                href="{% url 'posts:profile_follow' author.username %}" role="button"
+        >
+          Подписаться
+        </a>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block content %}
+{% for post in page_obj %}
+{% include 'posts/includes/post_list.html' %}
+{% if post.group %}
+<a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+{% endif %}
+{% if not forloop.last %}
+<hr>
+{% endif %}
+{% endfor %}
+{% include 'includes/paginator.html' %}
+{% endblock %}
+

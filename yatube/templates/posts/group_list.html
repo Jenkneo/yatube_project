@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+
+
+{% block title %}
+  <h1>{{ group_info.title }}</h1>
+{% endblock %}
+
+{% block content %}
+  <p>{{ group_info.description }}</p>
+  {% for post in page_obj %}
+    {% include 'posts/includes/post_list.html' %}
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+  {% include 'includes/paginator.html' %}
+{% endblock %}

@@ -1,29 +1,23 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
+
+
 {% block title %}
-<h1>Последние обновления на сайте</h1>
-{% endblock %}
-{% block content %}
-{% for post in posts %}
-<article>
-    <ul>
-        <li>
-            Автор: {{ post.author.get_full_name}}
-        </li>
-        <li>
-            Дата публикации: {{ post.pub_date|date:"d E Y" }}
-        </li>
-    </ul>
-    <p>
-        {{ post.text }}
-    </p>
-    {% if post.group %}
-    <a href="{% url 'posts:group_posts' post.group.address %}">все записи группы</a>
-    {% endif %}
-</article>
-{% if not forloop.last %}
-<hr>
-{% endif %}
-<!-- под последним постом нет линии -->
-{% endfor %}
+  <h1>Подписки на пользователей</h1>
 {% endblock %}
 
+
+{% block content %}
+  {% include 'posts/includes/switcher.html' %}
+  {% load cache %}
+  {% cache 20 index_page with page_obj %}
+  {% for post in page_obj %}
+    {% include 'posts/includes/post_list.html' %}
+      {% if post.group %}
+        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+      {% endif %}
+    {% if not forloop.last %}<hr>{% endif %}
+  {% endfor %}
+  {% include 'includes/paginator.html' %}
+  {% endcache %}
+{% endblock %}
